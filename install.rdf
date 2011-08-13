@@ -2,10 +2,10 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>showsynckey@philikon.de</em:id>
+    <em:id>aboutsynckey@philikon.de</em:id>
     <em:bootstrap>true</em:bootstrap>
     <em:type>2</em:type>
-    <em:name>Show Sync Key</em:name>
+    <em:name>about:synckey</em:name>
     <em:version>1.0</em:version>
     <em:creator>Philipp von Weitershausen</em:creator>
 

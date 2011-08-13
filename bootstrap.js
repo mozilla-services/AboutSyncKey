@@ -11,7 +11,7 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is Show Sync Key.
+ * The Original Code is about:synckey.
  *
  * The Initial Developer of the Original Code is
  * Philipp von Weitershausen <philipp@weitershausen.de>
@@ -39,7 +39,7 @@ const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://gre/modules/Services.jsm");
 
-const RESOURCE_HOST = "showsynckey";
+const RESOURCE_HOST = "aboutsynckey";
 
 XPCOMUtils.defineLazyGetter(this, "gResProtocolHandler", function () {
   return Services.io.getProtocolHandler("resource")
@@ -50,7 +50,7 @@ function startup(data, reason) {
   // Register the resource:// alias.
   gResProtocolHandler.setSubstitution(RESOURCE_HOST, data.resourceURI);
   Components.manager.addBootstrappedManifestLocation(data.installPath);
-  AboutShowSyncKey.register();
+  AboutSyncKey.register();
 }
 
 function shutdown(data, reason) {
@@ -58,13 +58,13 @@ function shutdown(data, reason) {
     return;
   }
 
-  AboutShowSyncKey.unload();
+  AboutSyncKey.unload();
   Components.manager.removeBootstrappedManifestLocation(data.installPath);
   gResProtocolHandler.setSubstitution(RESOURCE_HOST, null);
 }
 
 
-const AboutShowSyncKey = {
+const AboutSyncKey = {
   classID: Components.ID("bf435e1c-b535-4606-87b8-21dfe133988a"),
 
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIAboutModule,
@@ -75,7 +75,7 @@ const AboutShowSyncKey = {
   },
 
   newChannel: function newChannel(aURI) {
-    let uri = Services.io.newURI("chrome://showsynckey/content/synckey.xhtml",
+    let uri = Services.io.newURI("chrome://aboutsynckey/content/synckey.xhtml",
                                  null, null);
     let channel = Services.io.newChannelFromURI(uri);
     channel.originalURI = aURI;
@@ -95,7 +95,7 @@ const AboutShowSyncKey = {
   register: function register() {
     let registrar = Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
     registrar.registerFactory(
-      this.classID, "AboutShowSyncKey",
+      this.classID, "AboutSyncKey",
       "@mozilla.org/network/protocol/about;1?what=synckey", this);
   },
 
