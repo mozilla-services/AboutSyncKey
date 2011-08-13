@@ -39,13 +39,7 @@ const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://gre/modules/Services.jsm");
 
-XPCOMUtils.defineLazyGetter(this, "gResProtocolHandler", function () {
-  return Services.io.getProtocolHandler("resource")
-                 .QueryInterface(Ci.nsIResProtocolHandler);
-});
-
 function startup(data, reason) {
-  // Register the resource:// alias.
   Components.manager.addBootstrappedManifestLocation(data.installPath);
   AboutSyncKey.register();
   AboutSyncDashKey.register();
@@ -55,16 +49,13 @@ function shutdown(data, reason) {
   if (reason == APP_SHUTDOWN) {
     return;
   }
-
   AboutSyncKey.unload();
   AboutSyncDashKey.unload();
   Components.manager.removeBootstrappedManifestLocation(data.installPath);
 }
 
-
 const AboutSyncKey = {
   classID: Components.ID("bf435e1c-b535-4606-87b8-21dfe133988a"),
-
   aboutPath: "synckey",
 
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIAboutModule,
