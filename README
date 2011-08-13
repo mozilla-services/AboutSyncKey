@@ -1,0 +1,13 @@
+about:synckey
+=============
+
+A small restartless add-on for Firefox to view your Sync Key at
+about:synckey. Useful when you only have your mobile device running
+Firefox Mobile at hand and you would like to connect to your Sync
+account.
+
+1. Install this add-on. It's restartless, so no restart required.
+2. Open a new tab and go to about:synckey. Enter the Sync Key into
+   your other device.
+3. When you're done, you probably want to uninstall the add-on again
+   to prevent easy access to your Sync Key.
