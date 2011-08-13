@@ -39,8 +39,6 @@ const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://gre/modules/Services.jsm");
 
-const RESOURCE_HOST = "aboutsynckey";
-
 XPCOMUtils.defineLazyGetter(this, "gResProtocolHandler", function () {
   return Services.io.getProtocolHandler("resource")
                  .QueryInterface(Ci.nsIResProtocolHandler);
@@ -48,7 +46,6 @@ XPCOMUtils.defineLazyGetter(this, "gResProtocolHandler", function () {
 
 function startup(data, reason) {
   // Register the resource:// alias.
-  gResProtocolHandler.setSubstitution(RESOURCE_HOST, data.resourceURI);
   Components.manager.addBootstrappedManifestLocation(data.installPath);
   AboutSyncKey.register();
 }
@@ -60,7 +57,6 @@ function shutdown(data, reason) {
 
   AboutSyncKey.unload();
   Components.manager.removeBootstrappedManifestLocation(data.installPath);
-  gResProtocolHandler.setSubstitution(RESOURCE_HOST, null);
 }
 
 
