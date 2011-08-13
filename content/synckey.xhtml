@@ -41,12 +41,8 @@
 <!DOCTYPE html [
   <!ENTITY % htmlDTD PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
   %htmlDTD;
-  <!ENTITY % syncBrandDTD SYSTEM "chrome://browser/locale/syncBrand.dtd">
-  %syncBrandDTD;
-  <!ENTITY % syncKeyDTD SYSTEM "chrome://browser/locale/syncKey.dtd">
+  <!ENTITY % syncKeyDTD SYSTEM "chrome://aboutsynckey/content/synckey.dtd">
   %syncKeyDTD;
-  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd" >
-  %globalDTD;
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -61,7 +57,7 @@
   </style>
 </head>
 
-<body dir="&locale.dir;">
+<body>
 <h1>&syncKey.page.title;</h1>
 
 <p id="synckey" dir="ltr">SYNCKEY</p>
