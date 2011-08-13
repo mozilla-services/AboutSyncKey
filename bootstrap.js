@@ -38,7 +38,6 @@ const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://gre/modules/Services.jsm");
-Cu.import("resource://gre/modules/AddonManager.jsm");
 
 const RESOURCE_HOST = "showsynckey";
 
@@ -48,12 +47,9 @@ XPCOMUtils.defineLazyGetter(this, "gResProtocolHandler", function () {
 });
 
 function startup(data, reason) {
-  AddonManager.getAddonByID(data.id, function(addon) {
-    // Register the resource:// alias.
-    let uri = addon.getResourceURI(".");
-    gResProtocolHandler.setSubstitution(RESOURCE_HOST, uri);
-    AboutShowSyncKey.register();
-  });
+  // Register the resource:// alias.
+  gResProtocolHandler.setSubstitution(RESOURCE_HOST, data.resourceURI);
+  AboutShowSyncKey.register();
 }
 
 function shutdown(data, reason) {
