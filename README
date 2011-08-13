@@ -11,3 +11,8 @@ account.
    your other device.
 3. When you're done, you probably want to uninstall the add-on again
    to prevent easy access to your Sync Key.
+
+You may also want to consider protecting your Firefox data on your
+phone using a Master Password using this add-on:
+
+  https://addons.mozilla.org/mobile/addon/master-password-270907/
