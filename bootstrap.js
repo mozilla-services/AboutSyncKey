@@ -49,6 +49,7 @@ XPCOMUtils.defineLazyGetter(this, "gResProtocolHandler", function () {
 function startup(data, reason) {
   // Register the resource:// alias.
   gResProtocolHandler.setSubstitution(RESOURCE_HOST, data.resourceURI);
+  Components.manager.addBootstrappedManifestLocation(data.installPath);
   AboutShowSyncKey.register();
 }
 
@@ -58,6 +59,7 @@ function shutdown(data, reason) {
   }
 
   AboutShowSyncKey.unload();
+  Components.manager.removeBootstrappedManifestLocation(data.installPath);
   gResProtocolHandler.setSubstitution(RESOURCE_HOST, null);
 }
 
@@ -73,18 +75,10 @@ const AboutShowSyncKey = {
   },
 
   newChannel: function newChannel(aURI) {
-    let uri = Services.io.newURI("resource://showsynckey/synckey.xhtml",
+    let uri = Services.io.newURI("chrome://showsynckey/content/synckey.xhtml",
                                  null, null);
     let channel = Services.io.newChannelFromURI(uri);
     channel.originalURI = aURI;
-
-    // Ensure that the about page has the same privileges as a regular directory
-    // view. That way links to files can be opened.
-    let ssm = Cc["@mozilla.org/scriptsecuritymanager;1"]
-                .getService(Ci.nsIScriptSecurityManager);
-    let principal = ssm.getCodebasePrincipal(uri);
-    channel.owner = principal;
-
     return channel;
   },
 
