@@ -48,6 +48,7 @@ function startup(data, reason) {
   // Register the resource:// alias.
   Components.manager.addBootstrappedManifestLocation(data.installPath);
   AboutSyncKey.register();
+  AboutSyncDashKey.register();
 }
 
 function shutdown(data, reason) {
@@ -56,12 +57,15 @@ function shutdown(data, reason) {
   }
 
   AboutSyncKey.unload();
+  AboutSyncDashKey.unload();
   Components.manager.removeBootstrappedManifestLocation(data.installPath);
 }
 
 
 const AboutSyncKey = {
   classID: Components.ID("bf435e1c-b535-4606-87b8-21dfe133988a"),
+
+  aboutPath: "synckey",
 
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIAboutModule,
                                          Ci.nsISupportsWeakReference]),
@@ -92,11 +96,17 @@ const AboutSyncKey = {
     let registrar = Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
     registrar.registerFactory(
       this.classID, "AboutSyncKey",
-      "@mozilla.org/network/protocol/about;1?what=synckey", this);
+      "@mozilla.org/network/protocol/about;1?what=" + this.aboutPath, this);
   },
 
   unload: function unload() {
     let registrar = Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
     registrar.unregisterFactory(this.classID, this);
   },
+};
+
+const AboutSyncDashKey = {
+  __proto__: AboutSyncKey,
+  classID: Components.ID("d73f41a8-799c-44fa-a8fc-f841f51cf1ba"),
+  aboutPath: "sync-key",
 };
